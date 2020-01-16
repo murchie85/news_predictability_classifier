@@ -34,7 +34,7 @@ print(data['source'].value_counts())
 # Preprocessing
 data = data.drop(columns=['Unnamed: 0'],axis=1)             # Remove dud index column
 data = data.dropna()										# Remove NaN values
-data['target'] = np.where(data['source']=='Reuters', 1, 0) 
+data['target'] = np.where(data['source']=='Reuters', 1, 0)  # Change for desired news outlet
 data = data.drop(columns='source', axis=1) 					# removing leakage
 data = data.drop(columns='author', axis=1) 					# removing leakage
 data = data.drop(columns='url', axis=1)					    # removing leakage
@@ -100,4 +100,13 @@ print('Prediction accuracy when only considering the target outlet: ')
 print(target_only['correct'].value_counts())
 
 
-test.to_csv('predictions.csv')
+while True:
+    print('Do you want to save the prediction?')
+    decision = input('Enter Y or N').upper()
+    if decision == 'Y':
+        print('Saving...')
+        test.to_csv('predictions.csv')
+        break
+    elif decision =='N':
+        print('Exiting')
+        break
