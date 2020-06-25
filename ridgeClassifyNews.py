@@ -21,12 +21,20 @@
 import pandas as pd
 from sklearn import feature_extraction, linear_model, model_selection, preprocessing, metrics
 import numpy as np
+from shutil import copyfile
+
+
+
+
+# Copy data over 
+copyfile('/Users/adammcmurchie/projects/news_compiler/project/full_data.csv','/Users/adammcmurchie/2020/news_predictability_classifier/full_data.csv')
+
 
 # Read in CSV of news data
-data = pd.read_csv('data.csv')
+data = pd.read_csv('full_data.csv')
 print('The count of news sources to train on are: ')
 print(data['source'].value_counts())
-
+input('press enter to continue \n')
 
 #target = input('')
 
@@ -45,7 +53,7 @@ data = data.sample(frac=1)
 
 
 print(data.head())
-
+input('head printed, \n')
 
 # Train/Test Split (test is the validation in this case: will split 80:10:10 in future)
 valid_fraction=0.2
@@ -59,11 +67,12 @@ count_vectorizer = feature_extraction.text.CountVectorizer()
 
 
 # Show an example 
+print('example...')
 example_train_vectors = count_vectorizer.fit_transform(train["title"][0:5])
 print(example_train_vectors[0].todense().shape)
 print('')
 print(example_train_vectors[0].todense())
-
+input('')
 
 # Remove target from test as to prevent leakage
 test.drop(['target'], axis=1)
